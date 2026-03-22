@@ -2,7 +2,7 @@
 # Docs: https://fly.io/docs/reference/configuration/
 # Deploy: fly launch (first time) or fly deploy
 
-app = "betterecho"
+app = "betterecho-app"
 primary_region = "sin"  # Singapore — change to your nearest region
 
 [build]
@@ -12,7 +12,7 @@ primary_region = "sin"  # Singapore — change to your nearest region
                              # Upgrade to 'small' if using performance-1x or higher
 
 [http_service]
-  internal_port = 5000
+  internal_port = 8080
   force_https = true
   auto_stop_machines = true   # Stop machine when idle to save cost
   auto_start_machines = true  # Auto-start on incoming request
@@ -30,7 +30,7 @@ primary_region = "sin"  # Singapore — change to your nearest region
 [env]
   WHISPER_MODEL = "base"
   FLASK_ENV     = "production"
-  PORT          = "5000"
+  PORT          = "8080"
 
 # GEMINI_API_KEY must be set via:
 #   fly secrets set GEMINI_API_KEY=your-key-here
