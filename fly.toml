@@ -2,7 +2,7 @@
 # Docs: https://fly.io/docs/reference/configuration/
 # Deploy: fly launch (first time) or fly deploy
 
-app = "betterecho-ai"
+app = "betterecho"
 primary_region = "sin"  # Singapore — change to your nearest region
 
 [build]
