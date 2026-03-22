@@ -1,0 +1,36 @@
+# BetterEcho AI — Fly.io Deployment Configuration
+# Docs: https://fly.io/docs/reference/configuration/
+# Deploy: fly launch (first time) or fly deploy
+
+app = "betterecho-ai"
+primary_region = "sin"  # Singapore — change to your nearest region
+
+[build]
+  dockerfile = "Dockerfile"
+  [build.args]
+    WHISPER_MODEL = "base"  # Use 'base' to stay within memory limits on shared-cpu
+                             # Upgrade to 'small' if using performance-1x or higher
+
+[http_service]
+  internal_port = 5000
+  force_https = true
+  auto_stop_machines = true   # Stop machine when idle to save cost
+  auto_start_machines = true  # Auto-start on incoming request
+  min_machines_running = 0
+
+  [http_service.concurrency]
+    type = "requests"
+    hard_limit = 5
+    soft_limit = 2
+
+[[vm]]
+  size = "shared-cpu-1x"  # 256MB RAM — use 'performance-1x' (2GB) for WHISPER_MODEL=small
+  memory = "512mb"
+
+[env]
+  WHISPER_MODEL = "base"
+  FLASK_ENV     = "production"
+  PORT          = "5000"
+
+# GEMINI_API_KEY must be set via:
+#   fly secrets set GEMINI_API_KEY=your-key-here

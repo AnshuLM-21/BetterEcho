@@ -2,7 +2,7 @@ import os
 
 # Production Gunicorn Configuration for BetterEcho
 
-# Bind to PORT from environment (Render sets this automatically)
+# Bind to PORT from environment (Fly.io sets this automatically)
 bind = f"0.0.0.0:{os.environ.get('PORT', '5000')}"
 
 # Single worker — Whisper model is large and not fork-safe
